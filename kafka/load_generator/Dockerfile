@@ -10,7 +10,6 @@ RUN make
 WORKDIR /root
 
 RUN yum -y install python3-pip
-
 RUN pip3 install aiven-client
 
 ADD load_generator.py /root/

@@ -33,7 +33,7 @@ You can start a single instance of the load generator with the following command
         -e AIVEN_PROJECT="htn-aiven-demo" \
         -e AIVEN_SERVICE="t-kafka" \
         -e AIVEN_TOPIC="t-topic" \
-        --rm \
+        --rm -d \
         aiven-benchmark-kafka-load-generator
 
 Substitute the placeholder values with your correct token, project, service and the target topic.
