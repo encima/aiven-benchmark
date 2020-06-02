@@ -1,11 +1,19 @@
 from aiven.client import AivenClient
-from kafka.consumer import KafkaConsumer
-from kafka.structs import TopicPartition
 
 import json
 import logging
 import os
-import time
+import subprocess
+
+
+rdkafka_props_template = """\
+metadata.broker.list={aiven_service_uri}
+security.protocol=ssl
+ssl.key.location=client.key
+ssl.certificate.location=client.crt
+ssl.ca.location=ca.crt
+request.timeout.ms=60000
+"""
 
 
 def main():
@@ -36,23 +44,21 @@ def main():
     with open("ca.crt", "w") as fh:
         fh.write(result["certificate"])
 
-    # Initialize Kafka client
-    consumer = KafkaConsumer(
-        os.environ["AIVEN_TOPIC"],
-        auto_offset_reset="latest",
-        bootstrap_servers=service["service_uri"],
-        client_id="avn-load-client",
-        group_id="anv-load-001",
-        security_protocol="SSL",
-        ssl_cafile="ca.crt",
-        ssl_certfile="client.crt",
-        ssl_keyfile="client.key",
-    )
+    # write out properties for rdkafka benchmark tool
+    logger.info("Create properties file for rdkafka_performance")
+    with open("consumer.properties", "w") as fh:
+        fh.write(rdkafka_props_template.format(
+            aiven_service_uri=service["service_uri"]))
 
-    while True:
-        raw_msgs = consumer.poll()
-        raw_msgs.items()
-        consumer.commit()
+    # Start rdkafka_performance tool
+    logger.info("Start load generation, break with CTRL-C")
+    subprocess.run([
+        "/root/librdkafka/examples/rdkafka_performance",
+        "-X", "file=consumer.properties",
+        "-C",
+        "-G", "avn-bench",
+        "-t", os.environ["AIVEN_TOPIC"],
+    ])
 
 
 if __name__ == "__main__":

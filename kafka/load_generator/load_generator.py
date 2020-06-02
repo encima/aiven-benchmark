@@ -26,7 +26,8 @@ def main():
 
     # Lookup the target service
     logger.info("Looking up the target Aiven Kafka Service")
-    service = client.get_service(project=os.environ["AIVEN_PROJECT"], service=os.environ["AIVEN_SERVICE"])
+    service = client.get_service(
+        project=os.environ["AIVEN_PROJECT"], service=os.environ["AIVEN_SERVICE"])
     if not service:
         raise SystemExit("Failed to look up the target service")
 
@@ -46,7 +47,8 @@ def main():
     # write out properties for rdkafka benchmark tool
     logger.info("Create properties file for rdkafka_performance")
     with open("producer.properties", "w") as fh:
-        fh.write(rdkafka_props_template.format(aiven_service_uri=service["service_uri"]))
+        fh.write(rdkafka_props_template.format(
+            aiven_service_uri=service["service_uri"]))
 
     # Start rdkafka_performance tool
     logger.info("Start load generation, break with CTRL-C")
