@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: anv-bench-kafka-producer
+  name: anv-bench-kafka-reader
 spec:
   containers:
-    - name: anv-bench-kafka-producer
+    - name: anv-bench-kafka-reader
       image: gcr.io/avn-tooling/aiven-benchmark-kafka-load-reader:v1
       env:
         - name: AIVEN_TOKEN
