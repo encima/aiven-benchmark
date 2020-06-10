@@ -14,31 +14,28 @@ There are two tools:
 
 ## Pre-requisites
 
- - Create a Aiven authentication/API token
- - Target Aiven Kafka service with selected plan and cloud region must be up and running
- - The Kafka topic used for testing with selected partition count and replication factor must be created beforehand
+- Create a Aiven authentication/API token
+- Target Aiven Kafka service with selected plan and cloud region must be up and running
+- The Kafka topic used for testing with selected partition count and replication factor must be created beforehand
 
 ## Load generator
-
-### Build local Docker image
-
-    docker build -t aiven-benchmark-kafka-load-generator load_generator
 
 ### Starting the load generator
 
 You can start a single instance of the load generator with the following command:
 
-    docker run \
-        -e AIVEN_TOKEN="TOKENDATA" \
-        -e AIVEN_PROJECT="htn-aiven-demo" \
-        -e AIVEN_SERVICE="t-kafka" \
-        -e AIVEN_TOPIC="t-topic" \
-        --rm -d \
-        aiven-benchmark-kafka-load-generator
+```bash
+export AVN_TOKEN="TOKEN_DATA"
+docker run -e AIVEN_TOKEN=$AVN_TOKEN -e AIVEN_PROJECT="david-demo" -e AIVEN_SERVICE="kafka-bench-b4" -e AIVEN_TOPIC="test-topic" --rm -d davidavn/avn-bench-kafka-load-generator
+```
 
 Substitute the placeholder values with your correct token, project, service and the target topic.
 
 Tip: you can use e.g. managed Kubernetes service to scale up number of load generators until you reach the saturation point.
+
+### (Optional) Build local Docker image
+
+    docker build -t aiven-benchmark-kafka-load-generator load_generator
 
 ## Result reader
 
