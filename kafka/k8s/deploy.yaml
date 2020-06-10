@@ -27,3 +27,6 @@ spec:
               value: 'kafka-bench'
             - name: AIVEN_TOPIC
               value: 'load-topic'
+          resources:
+            requests:
+              cpu: 1
