@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avn-k-producer
+spec:
+  selector:
+    matchLabels:
+      app: avn-k-producer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: avn-k-producer
+    spec:
+      containers:
+        - name: avn-k-producer
+          image: davidavn/avn-bench-kafka-load-generator:latest
+          env:
+            - name: AIVEN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: avn-token
+                  key: token
+            - name: AIVEN_PROJECT
+              value: 'david-demo'
+            - name: AIVEN_SERVICE
+              value: 'kafka-bench'
+            - name: AIVEN_TOPIC
+              value: 'load-topic'
