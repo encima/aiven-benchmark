@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Change these
+PGPASSWORD="mypassword"
+PGHOST="myhost" # e.g. pg-bench-david-demo.aivencloud.com
+PGPORT="myport" # e.g. 24588
+
+# Optional
+PGDATABASE="pgbench-target"
+PGUSER="pgbench-user"
+
+docker run \
+    -e PGDATABASE=$PGDATABASE \
+    -e PGUSER=$PGUSER \
+    -e PGPASSWORD=$PGPASSWORD \
+    -e PGHOST=$PGHOST \
+    -e PGPORT=$PGPORT \
+    -e SCALE_FACTOR=10000 \
+    -e CLIENTS=180 \
+    -e THREADS=10 \
+    -e DURATION_SECONDS=1800 \
+    davidavn/avn-bench-pg-pgbench

@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: pgbench-
+spec:
+  template:
+    spec:
+      containers:
+        - name: pgbench
+          image: davidavn/avn-bench-pg-pgbench
+          env:
+            - name: PGPASSWORD
+              value: mypassword
+            - name: PGHOST
+              value: pg-bench-david-demo.aivencloud.com
+            - name: PGPORT
+              value: 24588
+            - name: SCALE_FACTOR
+              value: 10000
+            - name: CLIENTS
+              value: 180
+            - name: THREADS
+              value: 10
+            - name: DURATION_SECONDS
+              value: 1800
+      restartPolicy: Never
