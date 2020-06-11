@@ -4,7 +4,8 @@ import json
 import logging
 import os
 import subprocess
-
+import random
+import string
 
 rdkafka_props_template = """\
 metadata.broker.list={aiven_service_uri}
@@ -14,6 +15,11 @@ ssl.certificate.location=client.crt
 ssl.ca.location=ca.crt
 request.timeout.ms=60000
 """
+
+
+def randomString(stringLength=8):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(stringLength))
 
 
 def main():
@@ -50,13 +56,17 @@ def main():
         fh.write(rdkafka_props_template.format(
             aiven_service_uri=service["service_uri"]))
 
+    # Select consumer group
+    consumer_group = os.environ["AIVEN_CONSUMER_GROUP"]
+    consumer_group = consumer_group if consumer_group else randomString()
+
     # Start rdkafka_performance tool
     logger.info("Start load generation, break with CTRL-C")
     subprocess.run([
         "/root/librdkafka/examples/rdkafka_performance",
         "-X", "file=consumer.properties",
         "-C",
-        "-G", "avn-bench",
+        "-G", os.environ["AIVEN_CONSUMER_GROUP"],
         "-t", os.environ["AIVEN_TOPIC"],
     ])
 
