@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PGDATABASE=${PGDATABASE:-pgbench-target}
-PGUSER=${PGUSER:-pgbench-user}
-PGPASSWORD=${PGPASSWORD}
-PGHOST=${PGHOST}
-PGPORT=${PGPORT}
+export PGDATABASE=${PGDATABASE:-pgbench-target}
+export PGUSER=${PGUSER:-pgbench-user}
+export PGPASSWORD=${PGPASSWORD}
+export PGHOST=${PGHOST}
+export PGPORT=${PGPORT}
 
 FILL_FACTOR=${FILL_FACTOR:-100}
 SCALE_FACTOR=${SCALE_FACTOR:-100}
@@ -77,18 +77,19 @@ if [[ $attempt -ge 100 ]]; then
   exit 1
 fi
 
-check_pgbench_tables
+TABLE_STATUS=check_pgbench_tables
 
-if [[ $? -eq 3 ]]; then
+if [[ $TABLE_STATUS -eq 3 ]]; then
   initialize_pgbench_tables
-elif [[ $? -ne 0 ]]; then
-  exit $?
+elif [[ $TABLE_STATUS -ne 0 ]]; then
+  exit $TABLE_STATUS
 fi
 
 echo '***************   Running pgbench    ***************'
 
 for run in 1 2 3; do
   echo Starting run $run
+  echo "pgbench -c $CLIENTS -j $THREADS -M $QUERY_MODE -s $SCALE_FACTOR -T $DURATION_SECONDS"
   pgbench -c $CLIENTS -j $THREADS -M $QUERY_MODE -s $SCALE_FACTOR -T $DURATION_SECONDS
   echo
   echo

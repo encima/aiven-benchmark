@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: pgbench
-          image: davidavn/avn-bench-pg-pgbench
+          image: davidavn/avn-bench-pg-pgbench:v2.0.1
           env:
             - name: PGPASSWORD
               value: mypassword
