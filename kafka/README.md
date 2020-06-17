@@ -36,7 +36,7 @@ You can start a single instance of the load generator with the following command
 
 ```bash
 export AVN_TOKEN="TOKEN_DATA"
-docker run -e AIVEN_TOKEN=$AVN_TOKEN -e AIVEN_PROJECT="david-demo" -e AIVEN_SERVICE="kafka-bench" -e AIVEN_TOPIC="load-topic" --rm -d davidavn/avn-bench-kafka-load-generator
+docker run -e AIVEN_TOKEN=$AVN_TOKEN -e AIVEN_PROJECT="david-demo" -e AIVEN_SERVICE="kafka-bench" -e AIVEN_TOPIC="load-topic" --rm -d davidavn/avn-bench-kafka-load-generator:latest
 ```
 
 Substitute the placeholder values with your correct token, project, service and the target topic.
@@ -75,7 +75,7 @@ You can start a single instance of the load generator with the following command
 export AVN_TOKEN="TOKEN_DATA"
 
 # optional --e AIVEN_CONSUMER_GROUP="my-consumer-group"
-docker run -e AIVEN_TOKEN=$AVN_TOKEN -e AIVEN_PROJECT="david-demo" -e AIVEN_SERVICE="kafka-bench" -e AIVEN_TOPIC="load-topic" --rm -d davidavn/avn-bench-kafka-load-reader
+docker run -e AIVEN_TOKEN=$AVN_TOKEN -e AIVEN_PROJECT="david-demo" -e AIVEN_SERVICE="kafka-bench" -e AIVEN_TOPIC="load-topic" --rm -d davidavn/avn-bench-kafka-load-reader:latest
 ```
 
 Substitute the placeholder values with your correct token, project, service and the target topic.

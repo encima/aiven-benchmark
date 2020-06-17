@@ -56,17 +56,13 @@ def main():
         fh.write(rdkafka_props_template.format(
             aiven_service_uri=service["service_uri"]))
 
-    # Select consumer group
-    consumer_group = os.environ["AIVEN_CONSUMER_GROUP"]
-    consumer_group = consumer_group if consumer_group else randomString()
-
     # Start rdkafka_performance tool
     logger.info("Start load generation, break with CTRL-C")
     subprocess.run([
         "/root/librdkafka/examples/rdkafka_performance",
         "-X", "file=consumer.properties",
         "-C",
-        "-G", os.environ["AIVEN_CONSUMER_GROUP"],
+        "-G", randomString(),
         "-t", os.environ["AIVEN_TOPIC"],
     ])
 

@@ -24,6 +24,9 @@ spec:
               value: 'kafka-bench'
             - name: AIVEN_TOPIC
               value: 'load-topic'
+          resources:
+            requests:
+              cpu: '500m'
 
 ---
 apiVersion: apps/v1
@@ -42,7 +45,7 @@ spec:
     spec:
       containers:
         - name: avn-k-reader
-          image: davidavn/avn-bench-kafka-load-reader:latest
+          image: davidavn/avn-bench-kafka-load-reader:v1.0.1
           env:
             - name: AIVEN_TOKEN
               value: ...
@@ -52,3 +55,6 @@ spec:
               value: 'kafka-bench'
             - name: AIVEN_TOPIC
               value: 'load-topic'
+          resources:
+            requests:
+              cpu: '500m'
