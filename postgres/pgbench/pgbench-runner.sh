@@ -14,6 +14,7 @@ THREADS=${THREADS:-`$(nproc)`}
 DURATION_SECONDS=${DURATION_SECONDS:=300}
 
 function check_pgbench_tables() {
+  echo 'check_pgbench_tables'
   psql --set 'ON_ERROR_STOP=' <<-EOSQL
     DO \$\$
       DECLARE
@@ -77,7 +78,9 @@ if [[ $attempt -ge 100 ]]; then
   exit 1
 fi
 
-TABLE_STATUS=check_pgbench_tables
+check_pgbench_tables
+TABLE_STATUS=$psql_status
+echo "TABLE_STATUS=$TABLE_STATUS"
 
 if [[ $TABLE_STATUS -eq 3 ]]; then
   initialize_pgbench_tables
