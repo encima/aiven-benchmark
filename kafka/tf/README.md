@@ -1,5 +1,15 @@
 # Setup
 
+## Files
+
+| Filename                    | Description                                                            |
+| --------------------------- | ---------------------------------------------------------------------- |
+| `project-base.tf`           | Setup project and monitoring.                                          |
+| `variables.tfvars.template` | Template for providing variables.                                      |
+| `kafka.tf`                  | Create Kafka cluster(s) and topics, then hook up metrics integrations. |
+| `plan.sh`                   | Utility for planning and specifying tf var file.                       |
+| `apply.sh`                  | Utility for applying and specifying tf var file.                       |
+
 ## Step 0: Setup Terraform + Aiven Provider
 
 Follow [installation instructions](https://github.com/aiven/terraform-provider-aiven#installation).
