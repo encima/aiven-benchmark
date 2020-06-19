@@ -1,0 +1,15 @@
+# See Aiven's documentation for obtaining these values:
+# Token: https://help.aiven.io/en/articles/2059201-authentication-tokens
+aiven_api_token = "token"
+
+project_name = "project-name"
+
+# Optional if using CC Billing
+# Project Auth: https://github.com/aiven/terraform-provider-aiven#provider
+# aiven_card_id = "1111"
+
+# Optional if you are using the enterprise accounts feature
+# project_account_id = "asdf"
+
+# Deployment cloud/region for your kafka services
+kafka_cloud_region = "aws-us-east1"

@@ -26,7 +26,7 @@ spec:
               value: 'load-topic'
           resources:
             requests:
-              cpu: '500m'
+              cpu: '150m'
 
 ---
 apiVersion: apps/v1
@@ -37,7 +37,7 @@ spec:
   selector:
     matchLabels:
       app: avn-k-reader
-  replicas: 1
+  replicas: 0
   template:
     metadata:
       labels:
@@ -57,4 +57,4 @@ spec:
               value: 'load-topic'
           resources:
             requests:
-              cpu: '500m'
+              cpu: '150m'

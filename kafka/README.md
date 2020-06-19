@@ -1,5 +1,16 @@
 # Aiven Kafka benchmark
 
+## Deployment and Runtime
+
+We suggest deployment of your Aiven services using Terraform,
+and executing the load tooling using Kubernetes for easy scaling
+and distributed network load.
+
+See `/kafka/tf/README.md` for details on how to setup/run
+Terraform.
+
+See `/kafka/k8s/README.md` for details on how to setup/run in Kubernetes.
+
 ## Summary
 
 This repository contains the tools for running Kafka benchmarks against Aiven Kafka services.
